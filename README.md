@@ -35,4 +35,6 @@ to disable pane 0, pane 1, pane 2 and enable pane 5, pane 6, pane 7.
 
 ## To do 
 - [ ] Have adequate handling of cases when specified pane numbers do not exist. 
-- [ ] Allow users to give {1..5} to disable panes 1 through 5 
+- [ ] Allow users to give {1..5} to disable panes 1 through 5
+- [ ] Invert pane selection
+- [ ] disable or enable all panes 
