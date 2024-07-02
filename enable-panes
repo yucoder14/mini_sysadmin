@@ -1,5 +1,16 @@
 #! /bin/bash 
 
+####################################################################################################
+#                                                                                                  #  
+#    Helper Script to be run inside the tmux session. Allows users to enable select panes by       #  
+#    invoking the command mode (C-b : or <prefix> :) and typing the command. For example:          #  
+#                                                                                                  #  
+#        run-shell './enable-panes 0 1 2' to enable pane 0, pane 1, and pane 2                     #  
+#                                                                                                  #  
+#        author: Changwoo Yu        last modified: 2024-07-02                                      #
+#                                                                                                  #  
+####################################################################################################
+
 panes=$@
 
 read -a raw <<< $panes 
