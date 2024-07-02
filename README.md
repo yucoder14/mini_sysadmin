@@ -31,7 +31,7 @@ Then, at the command line,
 run-shell './disable-panes 0 1 2'
 ru './enable-panes 5 6 7'
 ```
-to disable pane 0, pane 1, and pane 2 and enable pane 5, pane 6, pane 7. 
+to disable pane 0, pane 1, pane 2 and enable pane 5, pane 6, pane 7. 
 
 ## To do 
 Have adequate handling of cases when specified pane numbers do not exist. 
