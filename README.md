@@ -9,7 +9,7 @@ If everything goes well, you should get a new tmux session named sshs_session wi
 You have an admin account with same password to login remotely to hosts. 
 
 ## Dependencies 
-You need to have tmux and bash installed. 
+You need to have tmux 3.4 > and bash 3 > installed. 
 
 ## Usage 
 Currently supports two functionalities: connecting via ssh and sending files with scp.
@@ -20,3 +20,19 @@ Currently supports two functionalities: connecting via ssh and sending files wit
 
 ## Features 
 Another problem with ssh login is that some hosts have ssh keys while some do not, which is a problem because you don't want to show others your admin password. 
+
+Utilizing the built in tmux command `run-shell`, I have written helper scripts that enable users to disable/enable panes by listing the pane numbers. To use the scripts, one must first invoke the command mode inside tmux:
+```
+Control-b :
+<prefix> :
+```
+Then, at the command line, 
+```
+run-shell './disable-panes 0 1 2'
+ru './enable-panes 5 6 7'
+```
+to disable pane 0, pane 1, and pane 2 and enable pane 5, pane 6, pane 7. 
+
+## To do 
+Have adequate handling of cases when specified pane numbers do not exist. 
+Allow users to give {1..5} to disable panes 1 through 5 
