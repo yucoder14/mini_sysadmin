@@ -21,6 +21,7 @@ Currently supports two functionalities: connecting via ssh and sending files wit
 ## Features 
 Another problem with ssh login is that some hosts have ssh keys while some do not, which is a problem because you don't want to show others your admin password. You can prevent this by disabling panes. However, there was no builting tmux command to disable a list of panes. 
 
+### Enable/Disable multiple panes
 Utilizing the built in tmux command `run-shell`, I have written helper scripts that enable users to disable/enable panes by listing the pane numbers. To use the scripts, one must first invoke the command mode inside tmux:
 ```
 Control-b :
