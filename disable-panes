@@ -1,0 +1,9 @@
+#! /bin/bash 
+
+panes=$@
+
+read -a raw <<< $panes 
+
+for i in ${raw[@]}; do 
+	tmux select-pane -t sshs_session:0.$i -d 
+done 
