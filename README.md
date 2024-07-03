@@ -6,8 +6,8 @@ The main script takes in a list of hosts as an input. The script checks if the h
 If everything goes well, you should get a new tmux session named sshs_session with appropriate amount of panes open. In each pane, you can see that it is attempting to connect to a remote host among the list of provided hosts. If you have a ssh key login set up, you will be automatically logged in upon connection. 
 
 ## Assumptions 
-You have an admin account with a same password to login to remote hosts. 
-You have a basic familiarity with tmux and its commands. 
+- You have an admin account with a same password to login to remote hosts. 
+- You have a basic familiarity with tmux and its commands. 
 
 ## Dependencies 
 You need to have tmux 3.4 > and bash 3 > installed. 
