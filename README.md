@@ -7,6 +7,7 @@ If everything goes well, you should get a new tmux session named sshs_session wi
 
 ## Assumptions 
 You have an admin account with a same password to login to remote hosts. 
+You have a basic familiarity with tmux and its commands. 
 
 ## Dependencies 
 You need to have tmux 3.4 > and bash 3 > installed. 
