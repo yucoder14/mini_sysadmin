@@ -7,9 +7,6 @@
 #      	                                                                                           #
 #      	Run command without arguments to see usuage. hosts.txt should be a list of hosts with      #
 #      	each host on a line.                                                                       #
-#      	                                                                                           #
-#       Does not yet support ssh key logins. Best suited for those who do not have a ssh key       #
-#       login set up.                                                                              #
 #                                                                                                  #
 #       Recommended to limit up to 20 hosts for visibility                                         #
 #                                                                                                  #
