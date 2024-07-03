@@ -3,7 +3,7 @@ Script to automate the process of opening multiple ssh sessions using tmux. Whil
 
 The main script takes in a list of hosts as an input. The script checks if the hosts you are trying to connect are up by pinging them. However, you should make sure that the host you are trying to connect has a working ssh connection. 
 
-If everything goes well, you should get a new tmux session named sshs_session with appropriate amount of panes open. In each pane, you can see that it is attempting to connect to a remote host among the list of provided hosts. If you have a ssh key login set up, you will be automatically logged in upon connection. 
+Upon success, you should get a new tmux session named 'sshs_session' with appropriate number of panes. In each pane, you can see that it is attempting to connect to a remote host among the list of provided hosts. If you have a ssh key login set up, you will be automatically logged in upon connection. 
 
 ## Assumptions 
 - You have an admin account with a same password to login to remote hosts. 
