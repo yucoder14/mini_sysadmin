@@ -47,6 +47,9 @@ ru './pane-control -d {0..12}'
 The above command will disable panes 0 to 12. If you specify a range that goes beyond the number of initialized panes, the script will only consider numbers within the number of initialized panes. 
 
 If you do not specify any pane or ranges, every pane is enabled/disabled depending on the flag.
+```
+ru './pane-control -d
+```
 
 ## To do 
 - [ ] Invert pane selection
