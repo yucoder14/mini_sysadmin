@@ -1,0 +1,71 @@
+#! /bin/bash 
+
+####################################################################################################
+#                                                                                                  #  
+#    Helper Script to be run inside the tmux session. Allows users to disable select panes by      #  
+#    invoking the command mode (C-b : or <prefix> :) and typing the command. For example:          #  
+#                                                                                                  #  
+#        run-shell './pane-control -d 0 1 2' to disable pane 0, pane 1, and pane 2                 #  
+#        run-shell './pane-control -e 0 1 2' to enable pane 0, pane 1, and pane 2                  #  
+#                                                                                                  #  
+#    Supports bash range notation:                                                                 #  
+#        run-shell './pane-control -e {0..2}' to enable pane 0, pane 1, and pane 2                 #  
+#                                                                                                  #  
+#    Without any pane specification, it is assumed that users want to enable/disable all panes     #  
+#        run-shell './pane-control -e' to enable all panes at once                                 #  
+#                                                                                                  #  
+#        author: Changwoo Yu        last modified: 2024-07-03                                      #
+#                                                                                                  #  
+####################################################################################################
+
+
+#helper function to process inputs 
+process_input() {
+    raw=($@)
+	panes=()	
+	for i in ${raw[@]}; do
+		panes+=($((i)))	
+	done	
+
+	echo ${panes[@]}	
+}
+
+#helper function to modify tmux panes 
+modify_panes(){
+	session=$1
+	total_panes=$2 
+	mode=$3
+	shift
+	shift
+	shift
+	panes=($@)
+	for i in ${panes[@]}; do
+		if [[ $i -ge $total_panes ]]; then 
+			continue 
+		fi
+		tmux select-pane -t $session:0.$i $mode
+	done 
+}
+
+session='sshs_session'
+total_panes=$(tmux list-panes -t $session | wc -l | awk '{print $1}')
+
+mode=''
+
+while getopts 'de' flag; do 
+	case "${flag}" in 
+		d)  mode='-d' ;; 
+		e)	mode='-e' ;;
+	esac
+done 
+shift 
+
+raw=$@
+
+if [[ -z $raw ]]; then 
+	modify_panes $session $total_panes $mode $(eval eval echo $'{0..$total_panes}')
+else 
+	panes=($(process_input $raw))
+	modify_panes $session $total_panes $mode ${panes[@]}
+fi
+
