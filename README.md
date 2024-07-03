@@ -28,12 +28,17 @@ Utilizing the built in tmux command `run-shell`, I have written a helper script 
 Control-b :
 <prefix> :
 ```
-Then, at the command line:
+To enable panes, use `-e` flag:
 ```
 run-shell './pane-control -e 5 6 7'
-ru './pane-control -d 0 1 2' (short hand version) 
 ```
-to disable pane 0, pane 1, pane 2 and enable pane 5, pane 6, pane 7. `-e` flag enables while `-d` flag disables pane(s).
+The above command enable pane 5, pane 6, pane 7.
+
+To disable panes, use  `-d` flag:
+```
+ru './pane-control -d 1 5 9
+```
+The above command disables pane 1, pand 5 pane 9.
 
 The helper script also supports bash range notation:
 ```
