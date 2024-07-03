@@ -1,5 +1,5 @@
 # mini_sysadmin
-Script to automate the process of opening multiple ssh sessions using tmux. While working as assistant student administrator, I had to ssh into multiple machines to manage packages and apps. I was tired of going through the same process multiple times, so I wrote a script. 
+Script to automate the process of opening multiple ssh sessions using tmux. While working as an assistant student administrator, I had to ssh into multiple machines to manage packages and apps. I was tired of going through the same process multiple times, so I wrote a script. 
 
 The main script takes in a list of hosts as an input. The script checks if the hosts you are trying to connect are up by pinging them. However, you should make sure that the host you are trying to connect has a working ssh connection. 
 
