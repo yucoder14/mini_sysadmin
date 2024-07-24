@@ -19,20 +19,22 @@ setup_tmux() {
 	session_name=$1
 	half=$2	
 
-	tmux kill-session -t $session_name 
+	echo killing previous session...
+	tmux kill-session -t $session_name
+	echo creating new session...
 	tmux new-session -s $session_name \; detach
 
-	#set up rows 
-	for i in $(eval echo "{0..$(( $half - 2 ))}"); do 
-		tmux attach -t $session_name \; splitw \; select-layout even-vertical \; detach 
-		(( index++ ))
-	done	
+	if [[ $half -gt 1 ]]; then
+		#set up rows 
+		for i in $(eval echo "{0..$(( $half - 2 ))}"); do 
+			tmux attach -t $session_name \; splitw \; select-layout even-vertical \; detach 
+		done	 
+	fi
 	
 	#set up columns
 	for j in $(eval echo "{0..$(( $half - 1 ))}"); do 
 		(( pane_num = 2 * $j )) 
 		tmux attach -t $session_name \; select-pane -t $pane_num \; splitw -h \; detach 
-		(( index++ ))
 	done
 }
 
@@ -87,6 +89,8 @@ main() {
 						host=${hosts[$i]}
 						ping_host $host $i & 
 					done)
+
+			wait 
 			
 			#for debugging purposes 
 			declare -p host_status 
@@ -100,9 +104,15 @@ main() {
 				fi 
 			done  
 			
+			declare -p up_hosts			
+			
 			total_up_hosts=${#up_hosts[@]} 
 			(( half=($total_up_hosts + 1) / 2 ))
 			(( total_panes=$half * 2 )) 
+		
+			echo total hosts: $total_up_hosts
+			echo total panes: $total_panes
+			echo total rows: $half
 
 			#set up tmux session 
 			session_name=sshs_session		
