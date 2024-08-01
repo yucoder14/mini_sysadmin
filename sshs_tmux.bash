@@ -128,7 +128,7 @@ main() {
 				else 
 					tmux send-keys -t "$session_name:0.$i" ssh' '-o' 'StrictHostKeyChecking=no' '$username@$host Enter
 					tmux send-keys -t "$session_name:0.$i" C-c
-					tmux send-keys -t "$session_name:0.$i" $cmd' '-o' 'StrictHostKeyChecking=no' '$file' '$username@$host:/Users/$username Enter
+					tmux send-keys -t "$session_name:0.$i" $cmd' '-o' 'StrictHostKeyChecking=no' '-r ' '$file' '$username@$host:/Users/$username Enter
 				fi
 				
 			done 
