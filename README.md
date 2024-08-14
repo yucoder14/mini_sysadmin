@@ -40,7 +40,7 @@ ru './pane-control -d 1 5 9
 ```
 The above command disables pane 1, pand 5 pane 9.
 
-The helper script also supports bash range notation:
+The helper script also supports bash range expansion:
 ```
 ru './pane-control -d {0..12}'
 ```
