@@ -13,10 +13,11 @@ Upon success, you should get a new tmux session named 'sshs_session' with approp
 You need to have tmux 3.4 > and bash 3 > installed. 
 
 ## Usage 
-Currently supports two functionalities: connecting via ssh and sending files with scp.
+Currently supports three functionalities: connecting via ssh, sending files with scp, initiating sftp.
 ```
-./open_tmux_bash3.sh ssh username hosts.txt
-./open_tmux_bash3.sh scp username hosts.txt file_to_send
+./sshd_tmux sftp username hosts.txt
+./sshd_tmux ssh username hosts.txt
+./sshd_tmux scp username hosts.txt file_to_send
 ```
 
 ## Features 
