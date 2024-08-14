@@ -20,8 +20,11 @@ setup_tmux() {
 	half=$2	
 
 	echo killing previous session...
+	echo
 	tmux kill-session -t $session_name
+	echo
 	echo creating new session...
+	echo
 	tmux new-session -s $session_name \; detach
 
 	if [[ $half -gt 1 ]]; then
@@ -52,7 +55,20 @@ ping_host() {
 	fi 
 }
 
+preamble() {
+
+	echo '###########################################################################'
+	echo '#  __  __ ___ _   _ ___   ______   ______    _    ____  __  __ ___ _   _  #' 
+	echo '# |  \/  |_ _| \ | |_ _| / ___\ \ / / ___|  / \  |  _ \|  \/  |_ _| \ | | #'
+	echo '# | |\/| || ||  \| || |  \___ \\ V /\___ \ / _ \ | | | | |\/| || ||  \| | #'
+	echo '# | |  | || || |\  || |   ___) || |  ___) / ___ \| |_| | |  | || || |\  | #'
+	echo '# |_|  |_|___|_| \_|___| |____/ |_| |____/_/   \_\____/|_|  |_|___|_| \_| #'
+	echo '#                                                                         #' 
+	echo '###########################################################################'
+}
+
 main() {
+	preamble	
 	#check for arguments 
 	if [[ -z $1 ]] || [[ -z $2 ]] || [[ -z $3 ]] ; then 
 		echo "usage: ./open_tmux ssh username hosts.txt"
@@ -86,7 +102,7 @@ main() {
 			host_status=()
 			
 			echo Checking Connections...	
-			time while read -r line; do 
+			while read -r line; do 
 				tmp=($(echo $line | tr ";" " "))
 				index=${tmp[0]}
 				state=${tmp[1]} 
@@ -99,7 +115,7 @@ main() {
 			wait 
 			
 			#for debugging purposes 
-			declare -p host_status 
+			#declare -p host_status 
 
 			#create a separate array only with hosts that are up 	
 			up_hosts=()
@@ -110,15 +126,14 @@ main() {
 				fi 
 			done  
 			
-			declare -p up_hosts			
-			
+			#declare -p up_hosts			
 			total_up_hosts=${#up_hosts[@]} 
 			(( half=($total_up_hosts + 1) / 2 ))
 			(( total_panes=$half * 2 )) 
 		
-			echo total hosts: $total_up_hosts
-			echo total panes: $total_panes
-			echo total rows: $half
+#			echo total hosts: $total_up_hosts
+#			echo total panes: $total_panes
+#			echo total rows: $half
 
 			#set up tmux session 
 			session_name=sshs_session		
@@ -129,20 +144,22 @@ main() {
 				host=${up_hosts[$i]}
 					
 				#send commands 
-				if [[ $cmd == "ssh" ]]; then  
+				case $cmd in 
+					ssh)
 					tmux send-keys -t "$session_name:0.$i" $cmd' '-o' 'StrictHostKeyChecking=no' '$username@$host Enter
-				elif [[ $cmd == "sftp" ]]; then 
+					;;
+					scp)
 					tmux send-keys -t "$session_name:0.$i" ssh' '-o' 'StrictHostKeyChecking=no' '$username@$host Enter
 					tmux send-keys -t "$session_name:0.$i" C-c
 					tmux send-keys -t "$session_name:0.$i" $cmd' '-o' 'StrictHostKeyChecking=no' '$username@$host Enter
-				elif [[ $cmd == "scp" ]]; then 
+					;;
+					sftp) 
 					tmux send-keys -t "$session_name:0.$i" ssh' '-o' 'StrictHostKeyChecking=no' '$username@$host Enter
 					tmux send-keys -t "$session_name:0.$i" C-c
 					tmux send-keys -t "$session_name:0.$i" $cmd' '-o' 'StrictHostKeyChecking=no' '-r ' '$file' '$username@$host:/Users/$username Enter
-				else 
-					echo $cmd is not a valid protocol
-				fi
-				
+					;;
+					*) echo should be un-reacheable;;
+				esac 
 			done 
 			
 			if [[ $total_panes -gt $total_up_hosts ]]; then 
