@@ -71,9 +71,9 @@ main() {
 	preamble	
 	#check for arguments 
 	if [[ -z $1 ]] || [[ -z $2 ]] || [[ -z $3 ]] ; then 
-		echo "usage: ./open_tmux ssh username hosts.txt"
-		echo "       ./open_tmux sftp username hosts.txt" 
-		echo "       ./open_tmux scp username hosts.txt file" 
+		echo "usage: ./sshs_tmux ssh username hosts.txt"
+		echo "       ./sshs_tmux sftp username hosts.txt" 
+		echo "       ./sshs_tmux scp username hosts.txt file" 
 	else
 		list=$3
 
