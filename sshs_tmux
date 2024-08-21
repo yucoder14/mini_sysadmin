@@ -85,7 +85,6 @@ main() {
 
 			case $cmd in  
 				ssh | scp | sftp) echo preparing $cmd sessions...;;
-				scp) ;;
 				*) echo \"$cmd\" is not a valid command; return	;;
 			esac
 			hosts=()
